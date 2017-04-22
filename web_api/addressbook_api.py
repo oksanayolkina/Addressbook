@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 class AddressBookAPI:
 
@@ -34,15 +36,18 @@ class AddressBookAPI:
         # init group creation
         wd.find_element_by_name("new").click()
         # fill group form
-        wd.find_element_by_name("group_name").click()
-        wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(group.name)
-        wd.find_element_by_name("group_header").click()
-        wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(group.header)
-        wd.find_element_by_name("group_footer").click()
-        wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(group.footer)
+        if group.name is not None:
+            wd.find_element_by_name("group_name").click()
+            wd.find_element_by_name("group_name").clear()
+            wd.find_element_by_name("group_name").send_keys(group.name)
+        if group.header is not None:
+            wd.find_element_by_name("group_header").click()
+            wd.find_element_by_name("group_header").clear()
+            wd.find_element_by_name("group_header").send_keys(group.header)
+        if group.footer is not None:
+            wd.find_element_by_name("group_footer").click()
+            wd.find_element_by_name("group_footer").clear()
+            wd.find_element_by_name("group_footer").send_keys(group.footer)
         # submit group form
         wd.find_element_by_name("submit").click()
 
@@ -68,3 +73,15 @@ class AddressBookAPI:
     def message(self):
         wd = self.wd
         return wd.find_element_by_css_selector("div.msgbox").text
+
+    def is_element_present(self, by, locator):
+        wd = self.wd
+        try:
+            wd.find_element(by, locator)
+            return True
+        except NoSuchElementException:
+            return False
+
+    def is_groups_present(self):
+        self.open_group_page()
+        return self.is_element_present(By.NAME, "selected[]")
