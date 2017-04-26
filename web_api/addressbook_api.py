@@ -82,6 +82,18 @@ class AddressBookAPI:
         except NoSuchElementException:
             return False
 
-    def is_groups_present(self):
+    def is_group_present(self):
         self.open_group_page()
         return self.is_element_present(By.NAME, "selected[]")
+
+    def is_groups_present(self):
+        wd = self.wd
+        self.open_group_page()
+        elements = wd.find_elements(By.CSS_SELECTOR, '#content>form>input[type="checkbox"]')
+        for elem in elements:
+            el = elem.get_attribute("title")
+            if el == "Select (name)" or "Select (gr_name)":
+                return el
+            else:
+                continue
+

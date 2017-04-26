@@ -16,6 +16,6 @@ def init_login(app):
 
 @pytest.fixture
 def create_if_not_groups(app, init_login):
-    if not app.is_groups_present():
+    if not app.is_group_present():
         test_group = Group(name="gr_name")
         app.create_group(test_group)
