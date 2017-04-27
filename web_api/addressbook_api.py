@@ -75,7 +75,8 @@ class AddressBookAPI:
         wd.find_element_by_name("nickname").send_keys(contact.nickname)
 
         # load foto
-        # wd.find_element_by_name("photo").click()
+        wd.find_element_by_name("photo").click()
+        wd.find_element_by_name("photo").send_keys('C:\study\img\img-2.jpg')
 
         wd.find_element_by_name("title").click()
         wd.find_element_by_name("title").clear()
