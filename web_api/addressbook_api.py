@@ -97,3 +97,22 @@ class AddressBookAPI:
             else:
                 continue
 
+    def modife_group_by_number(self, number):
+        wd = self.wd
+        checkboxes = wd.find_elements_by_name("selected[]")
+        checkboxes[number].click()
+        wd.find_element_by_name("edit").click()
+
+        wd.find_element_by_name("group_name").click()
+        wd.find_element_by_name("group_name").clear()
+        wd.find_element_by_name("group_name").send_keys("name_change")
+
+        wd.find_element_by_name("group_header").click()
+        wd.find_element_by_name("group_header").clear()
+        wd.find_element_by_name("group_header").send_keys("header_change")
+
+        wd.find_element_by_name("group_footer").click()
+        wd.find_element_by_name("group_footer").clear()
+        wd.find_element_by_name("group_footer").send_keys("footer_change")
+
+        wd.find_element_by_name("update").click()

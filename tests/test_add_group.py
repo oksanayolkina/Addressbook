@@ -14,6 +14,8 @@ def test_add_group(app, init_login, group):
     app.create_group(group)
     assert "A new group has been entered into the address book." in app.message()
     app.return_to_group_page()
-    # TODO: Verify group in grouplist
 
+    # TODO: Verify group in grouplist
     assert "gr_name" or "name" in app.is_groups_present()
+
+    app.delete_group_by_number(0)
