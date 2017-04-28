@@ -1,6 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.alert import Alert
 from selenium.common.exceptions import NoSuchElementException
+import time
 
 class AddressBookAPI:
 
@@ -158,6 +160,24 @@ class AddressBookAPI:
         checkboxes = wd.find_elements_by_name("selected[]")
         checkboxes[number].click()
         wd.find_element_by_name("delete").click()
+
+    def delete_all_contacts(self):
+        wd = self.wd
+        self.open_home_page()
+        wd.find_element_by_id("MassCB").click()
+        wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
+        time.sleep(1)
+        Alert(wd).accept()
+        time.sleep(1)
+
+    def delete_one_contact(self):
+        wd = self.wd
+        self.open_home_page()
+        wd.find_element_by_xpath('//*[@id="maintable"]/tbody/tr[2]/td[1]').click()
+        wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
+        time.sleep(1)
+        Alert(wd).accept()
+        time.sleep(1)
 
     def message(self):
         wd = self.wd
