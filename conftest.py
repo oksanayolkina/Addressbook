@@ -23,6 +23,6 @@ def create_if_not_groups(app, init_login):
 
 @pytest.fixture
 def create_if_not_contacts(app, init_login):
-    if not app.is_group_present():
+    if not app.is_contact_present():
         test_contact = Contact(firstname="Oksana_name")
         app.create_contact(test_contact)
