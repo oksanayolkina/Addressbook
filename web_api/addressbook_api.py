@@ -15,7 +15,7 @@ class AddressBookAPI:
         self.wd = webdriver.Chrome()
         # self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(10)
-        self.session = SessionHelper()
+        self.session = SessionHelper(self)
         self.group = GroupHelper()
         self.contact = ContactHelper()
 
@@ -24,19 +24,6 @@ class AddressBookAPI:
         # open home page
         wd.get("http://localhost:8888/addressbook/index.php")
         time.sleep(10)
-
-    def login(self, username, password):
-        wd = self.wd
-        self.open_home_page()
-        # login
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        el = wd.find_element_by_name("user")
-        el.send_keys(username)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
 
     def open_group_page(self):
         wd = self.wd
@@ -177,10 +164,7 @@ class AddressBookAPI:
         button.click()
         WebDriverWait(wd, 15).until(staleness_of(button))
 
-    def logout(self):
-        wd = self.wd
-        # logout
-        wd.find_element_by_css_selector('form[name="logout"] > a').click()
+
 
     def destroy(self):
         self.wd.quit()

@@ -18,4 +18,4 @@ def test_add_group(app, init_login, group):
     # TODO: Verify group in grouplist
     assert "gr_name" or "name" in app.is_groups_present()
 
-    app.delete_group_by_number(0)
+    # app.delete_group_by_number(0)

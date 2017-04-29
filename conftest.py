@@ -11,9 +11,9 @@ def app():
 
 @pytest.fixture(scope="session")
 def init_login(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     yield
-    app.logout()
+    app.session.logout()
 
 @pytest.fixture
 def create_if_not_groups(app, init_login):
