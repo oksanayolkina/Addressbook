@@ -5,6 +5,9 @@ from selenium.common.exceptions import NoSuchElementException
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import staleness_of
+from web_api.session_helper import SessionHelper
+from web_api.group_helper import GroupHelper
+from web_api.contact_helper import ContactHelper
 
 class AddressBookAPI:
 
@@ -12,6 +15,9 @@ class AddressBookAPI:
         self.wd = webdriver.Chrome()
         # self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(10)
+        self.session = SessionHelper()
+        self.group = GroupHelper()
+        self.contact = ContactHelper()
 
     def open_home_page(self):
         wd = self.wd

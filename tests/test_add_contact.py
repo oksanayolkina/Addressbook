@@ -18,4 +18,4 @@ def test_add_contact(app, init_login, contact):
 
     # TODO: Verify contact in contactlist
 
-    app.delete_all_contacts()
+    # app.delete_all_contacts()
