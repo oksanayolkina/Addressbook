@@ -5,9 +5,9 @@ import pytest
 
 @pytest.fixture(scope="session")
 def app():
-    app = AddressBookAPI()
-    yield app
-    app.destroy()
+    addr_app = AddressBookAPI()
+    yield addr_app
+    addr_app.destroy()
 
 @pytest.fixture(scope="session")
 def init_login(app):

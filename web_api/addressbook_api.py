@@ -3,18 +3,21 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.alert import Alert
 from selenium.common.exceptions import NoSuchElementException
 import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.expected_conditions import staleness_of
 
 class AddressBookAPI:
 
     def __init__(self):
         self.wd = webdriver.Chrome()
         # self.wd = webdriver.Firefox()
-        self.wd.implicitly_wait(5)
+        self.wd.implicitly_wait(10)
 
     def open_home_page(self):
         wd = self.wd
         # open home page
         wd.get("http://localhost:8888/addressbook/index.php")
+        time.sleep(10)
 
     def login(self, username, password):
         wd = self.wd
@@ -22,7 +25,8 @@ class AddressBookAPI:
         # login
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
+        el = wd.find_element_by_name("user")
+        el.send_keys(username)
         wd.find_element_by_name("pass").click()
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(password)
@@ -36,7 +40,9 @@ class AddressBookAPI:
     def create_group(self, group):
         wd = self.wd
         # init group creation
-        wd.find_element_by_name("new").click()
+        button = wd.find_element_by_name("new")
+        button.click()
+        WebDriverWait(wd, 15).until(staleness_of(button))
         # fill group form
         if group.name is not None:
             wd.find_element_by_name("group_name").click()
@@ -161,7 +167,9 @@ class AddressBookAPI:
     def return_to_group_page(self):
         wd = self.wd
         # return to group page
-        wd.find_element_by_link_text("group page").click()
+        button = wd.find_element_by_link_text("group page")
+        button.click()
+        WebDriverWait(wd, 15).until(staleness_of(button))
 
     def logout(self):
         wd = self.wd
