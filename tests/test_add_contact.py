@@ -12,7 +12,7 @@ test_data = [
 
 @pytest.mark.parametrize("contact", test_data, ids=[repr(b) for b in test_data])
 def test_add_contact(app, init_login, contact):
-    app.create_contact(contact)
+    app.contact.create_contact(contact)
     assert "Information entered into address book." in app.message()
     app.open_home_page()
 
