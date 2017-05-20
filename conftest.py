@@ -3,6 +3,7 @@ from web_api.addressbook_api import AddressBookAPI
 from models.group import Group
 from models.contact import Contact
 from data.test_groups import test_data
+from data.test_contacts import test_data_c
 from db_api.addressbook_orm import AddressBookORM
 
 def pytest_addoption(parser):
@@ -54,4 +55,8 @@ def index(app, request):
 
 @pytest.fixture(params=test_data, ids=[repr(b) for b in test_data])
 def test_group(request):
+    return request.param
+
+@pytest.fixture(params=test_data_c, ids=[repr(b) for b in test_data_c])
+def test_contact(request):
     return request.param

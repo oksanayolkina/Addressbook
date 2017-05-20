@@ -133,3 +133,20 @@ class ContactHelper:
     def is_contact_present(self):
         self.app.open_home_page()
         return self.app.is_element_present(By.NAME, "selected[]")
+
+    def get_list(self):
+        wd = self.app.wd
+        self.open_group_page()
+        checkboxes = wd.find_elements_by_name("selected[]")
+        groups = []
+        for checkbox in checkboxes:
+            name = checkbox.get_attribute("title")[8:-1]
+            id = int(checkbox.get_attribute("value"))
+            groups.append(Group(name=name, id=id))
+        return groups
+
+    def count(self):
+        wd = self.app.wd
+        self.open_group_page()
+        checkboxes = wd.find_elements_by_name("selected[]")
+        return len(checkboxes)

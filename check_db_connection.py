@@ -1,5 +1,5 @@
-from db_api.addressbook_db import AddresbookDB
 from db_api.addressbook_orm import AddressBookORM
+from models.group import Group
 
 config = {
     "host": "localhost",
@@ -9,11 +9,12 @@ config = {
     "db": "test"
 }
 
-# db = AddresbookDB(**config)
 db = AddressBookORM(**config)
 
 try:
-        for c in db.get_group_list():
-            print(c)
+    l = db.get_contacts_in_group(Group(id='171'))
+    for c in l:
+        print(c)
+    print(len(l))
 finally:
     pass
